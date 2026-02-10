@@ -1,0 +1,27 @@
+pipeline:
+  name: sample_one
+  identifier: sample_one
+  projectIdentifier: CSETest1
+  orgIdentifier: AbhiOrg
+  tags: {}
+  stages:
+    - stage:
+        name: dd
+        identifier: dd
+        tags: {}
+        template:
+          templateRef: account.newtest
+          templateInputs:
+            type: Deployment
+            spec:
+              environment:
+                environmentRef: ECS_INFRA
+                serviceOverrideInputs:
+                  variables:
+                    - name: varone
+                      type: String
+                      value: ""
+                infrastructureDefinitions:
+                  - identifier: two
+              service:
+                serviceRef: k8service
