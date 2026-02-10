@@ -11,7 +11,6 @@ pipeline:
         tags: {}
         template:
           templateRef: account.newtest
-          versionLabel: "2"
           gitBranch: main-patch1
           templateInputs:
             type: Deployment
