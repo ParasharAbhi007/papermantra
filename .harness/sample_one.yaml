@@ -6,23 +6,14 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: testwi
-        identifier: testwi
+        name: dd
+        identifier: dd
         tags: {}
         template:
           templateRef: account.newtest
-          gitBranch: main
+          versionLabel: "2"
+          gitBranch: main-patch1
           templateInputs:
-            type: Deployment
             spec:
-              environment:
-                environmentRef: ECS_INFRA
-                serviceOverrideInputs:
-                  variables:
-                    - name: varone
-                      type: String
-                      value: "n"
-                infrastructureDefinitions:
-                  - identifier: two
               service:
-                serviceRef: k8service
+                serviceInputs: <+input>
