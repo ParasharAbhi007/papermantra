@@ -16,4 +16,13 @@ pipeline:
           templateInputs:
             spec:
               service:
-                serviceInputs: <+input>
+                serviceRef: k8service
+              environment:
+                environmentRef: ECS_INFRA
+                serviceOverrideInputs:
+                  variables:
+                    - name: varone
+                      type: String
+                      value: n n
+                infrastructureDefinitions:
+                  - identifier: two
