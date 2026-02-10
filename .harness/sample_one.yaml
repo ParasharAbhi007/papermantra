@@ -17,10 +17,13 @@ pipeline:
             type: Deployment
             spec:
               environment:
-                environmentRef: <+input>
-                environmentInputs: <+input>
-                serviceOverrideInputs: <+input>
-                infrastructureDefinitions: <+input>
+                environmentRef: ECS_INFRA
+                serviceOverrideInputs:
+                  variables:
+                    - name: varone
+                      type: String
+                      value: "n"
+                infrastructureDefinitions:
+                  - identifier: two
               service:
-                serviceRef: <+input>
-                serviceInputs: <+input>
+                serviceRef: k8service
