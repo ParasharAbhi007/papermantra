@@ -6,22 +6,6 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: second
-        identifier: second
-        tags: {}
-        template:
-          templateRef: account.newtestone
-          gitBranch: master
-          templateInputs:
-            type: Deployment
-            spec:
-              environment:
-                environmentRef: K8Env
-                infrastructureDefinitions:
-                  - identifier: K8INFRA
-              service:
-                serviceRef: k8service
-    - stage:
         name: testwi
         identifier: testwi
         tags: {}
