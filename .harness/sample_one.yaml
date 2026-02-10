@@ -21,3 +21,22 @@ pipeline:
                   - identifier: K8INFRA
               service:
                 serviceRef: k8service
+    - stage:
+        name: testwi
+        identifier: testwi
+        tags: {}
+        template:
+          templateRef: account.newtest
+          versionLabel: "1"
+          gitBranch: main
+          templateInputs:
+            type: Deployment
+            spec:
+              environment:
+                environmentRef: <+input>
+                environmentInputs: <+input>
+                serviceOverrideInputs: <+input>
+                infrastructureDefinitions: <+input>
+              service:
+                serviceRef: <+input>
+                serviceInputs: <+input>
