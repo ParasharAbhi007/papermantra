@@ -14,9 +14,8 @@ pipeline:
           versionLabel: "2"
           gitBranch: main-patch1
           templateInputs:
+            type: Deployment
             spec:
-              service:
-                serviceRef: k8service
               environment:
                 environmentRef: ECS_INFRA
                 serviceOverrideInputs:
@@ -26,3 +25,5 @@ pipeline:
                       value: n n
                 infrastructureDefinitions:
                   - identifier: two
+              service:
+                serviceRef: k8service
