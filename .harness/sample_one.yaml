@@ -6,22 +6,20 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: dd
-        identifier: dd
+        name: second
+        identifier: second
         tags: {}
         template:
-          templateRef: account.newtest
+          templateRef: account.newtestone
+          gitBranch: master
           templateInputs:
             type: Deployment
             spec:
               environment:
-                environmentRef: ECS_INFRA
-                serviceOverrideInputs:
-                  variables:
-                    - name: varone
-                      type: String
-                      value: ""
-                infrastructureDefinitions:
-                  - identifier: two
+                environmentRef: <+input>
+                environmentInputs: <+input>
+                serviceOverrideInputs: <+input>
+                infrastructureDefinitions: <+input>
               service:
-                serviceRef: k8service
+                serviceRef: <+input>
+                serviceInputs: <+input>
