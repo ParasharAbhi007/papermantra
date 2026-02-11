@@ -53,3 +53,11 @@ pipeline:
                   spec:
                     shell: Sh
                     command: hello
+    - stage:
+        name: custm
+        identifier: custm
+        tags: {}
+        template:
+          templateRef: account.custom
+          versionLabel: "1"
+          gitBranch: revert-7-new3
