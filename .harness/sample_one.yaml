@@ -6,27 +6,6 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: dd
-        identifier: dd
-        tags: {}
-        template:
-          templateRef: account.newtest
-          gitBranch: main-patch1
-          templateInputs:
-            type: Deployment
-            spec:
-              environment:
-                environmentRef: ECS_INFRA
-                serviceOverrideInputs:
-                  variables:
-                    - name: varone
-                      type: String
-                      value: n n
-                infrastructureDefinitions:
-                  - identifier: two
-              service:
-                serviceRef: k8service
-    - stage:
         name: cue
         identifier: cue
         description: ""
@@ -59,5 +38,4 @@ pipeline:
         tags: {}
         template:
           templateRef: account.custom
-          versionLabel: "1"
           gitBranch: revert-7-new3
