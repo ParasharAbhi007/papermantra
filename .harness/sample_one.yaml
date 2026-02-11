@@ -11,7 +11,6 @@ pipeline:
         tags: {}
         template:
           templateRef: account.custom
-          gitBranch: main
     - stage:
         name: cue
         identifier: cue
