@@ -6,6 +6,13 @@ pipeline:
   tags: {}
   stages:
     - stage:
+        name: custm
+        identifier: custm
+        tags: {}
+        template:
+          templateRef: account.custom
+          gitBranch: revert-7-new3
+    - stage:
         name: cue
         identifier: cue
         description: ""
@@ -32,10 +39,3 @@ pipeline:
                   spec:
                     shell: Sh
                     command: hello
-    - stage:
-        name: custm
-        identifier: custm
-        tags: {}
-        template:
-          templateRef: account.custom
-          gitBranch: revert-7-new3
