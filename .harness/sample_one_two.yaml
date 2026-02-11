@@ -1,0 +1,38 @@
+apiVersion: harness.io/v1
+kind: Workflow
+type: service
+identifier: Jeff_Test_Workflow
+name: Jeff Test Workflow
+owner: user:account/jeffrey.good@disney.com
+spec:
+  output:
+    links:
+    - title: Pipeline Details
+      url: ${{ steps.trigger.output.PipelineUrl }}
+  lifecycle: beta
+  parameters:
+  - title: Hello World
+    required:
+    - echo_test
+    properties:
+      token:
+        title: Harness Token
+        type: string
+        ui:widget: password
+        ui:field: HarnessAuthToken
+      echo_test:
+        title: Pipeline will echo this value
+        type: string
+  steps:
+  - id: trigger
+    name: Generate Workflow
+    action: trigger:harness-custom-pipeline
+    input:
+      url: https://app.harness.io/ng/account/akx2lmy5SnOFm549xPhFKQ/module/cd/orgs/AbhiOrg/projects/CSETest1/pipelines/sample_one/pipeline-studio/?storeType=REMOTE&connectorRef=account.AbhinandanGit&repoName=papermantra&branch=ParasharAbhi007-patch-1
+      inputset:
+        ECHO_TEST: ${{ parameters.echo_test }}
+      apikey: ${{ parameters.token }}
+metadata:
+  description: This is a stubbed out hello world workflow
+  tags:
+  - workflow
