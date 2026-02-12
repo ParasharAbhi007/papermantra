@@ -38,3 +38,9 @@ pipeline:
                   spec:
                     shell: Sh
                     command: hello
+  variables:
+    - name: hbhj
+      type: String
+      description: ""
+      required: false
+      value: <+input>
