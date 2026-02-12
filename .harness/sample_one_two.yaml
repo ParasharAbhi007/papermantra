@@ -30,7 +30,7 @@ spec:
     input:
       url: https://app.harness.io/ng/account/akx2lmy5SnOFm549xPhFKQ/module/cd/orgs/AbhiOrg/projects/CSETest1/pipelines/sample_one/pipeline-studio/?storeType=REMOTE&connectorRef=account.AbhinandanGit&repoName=papermantra&branch=ParasharAbhi007-patch-1
       inputset:
-        ECHO_TEST: ${{ parameters.echo_test }}
+        pipeline.variables.hbhj: ${{ parameters.echo_test }}
       apikey: ${{ parameters.token }}
 metadata:
   description: This is a stubbed out hello world workflow
