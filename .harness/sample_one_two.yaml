@@ -28,7 +28,7 @@ spec:
     name: Generate Workflow
     action: trigger:harness-custom-pipeline
     input:
-      url: https://app.harness.io/ng/account/akx2lmy5SnOFm549xPhFKQ/module/cd/orgs/AbhiOrg/projects/CSETest1/pipelines/sample_one/pipeline-studio/?storeType=REMOTE&connectorRef=account.AbhinandanGit&branch=ParasharAbhi007-patch-1
+      url: https://app.harness.io/ng/account/akx2lmy5SnOFm549xPhFKQ/module/cd/orgs/AbhiOrg/projects/CSETest1/pipelines/sample_one/pipeline-studio/?storeType=REMOTE&connectorRef=account.AbhinandanGit&repoName=papermantra&branch=ParasharAbhi007-patch-1
       inputset:
         pipeline.variables.hbhj: ${{ parameters.echo_test }}
       apikey: ${{ parameters.token }}
