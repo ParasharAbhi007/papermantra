@@ -38,6 +38,29 @@ pipeline:
                   spec:
                     shell: Sh
                     command: hello
+    - stage:
+        name: iacm
+        identifier: iacm
+        description: ""
+        type: IACM
+        spec:
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          workspace: first
+          execution:
+            steps:
+              - step:
+                  type: IACMApproval
+                  name: IACMApproval_1
+                  identifier: IACMApproval_1
+                  spec:
+                    autoApprove: false
+                  timeout: 1h
+        tags: {}
   variables:
     - name: hbhj
       type: String
