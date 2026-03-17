@@ -6,61 +6,44 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: custm
-        identifier: custm
-        tags: {}
-        template:
-          templateRef: account.custom
-    - stage:
-        name: cue
-        identifier: cue
+        name: cds
+        identifier: cds
         description: ""
-        type: CI
+        type: Deployment
         spec:
-          cloneCodebase: false
-          caching:
-            enabled: true
-            override: false
-          buildIntelligence:
-            enabled: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
+          deploymentType: Kubernetes
+          service:
+            serviceRef: <+input>
+            serviceInputs: <+input>
+          environment:
+            environmentRef: ECS_INFRA
+            deployToAll: false
+            infrastructureDefinitions: <+input>
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
                   spec:
-                    shell: Sh
-                    command: hello
-    - stage:
-        name: iacm
-        identifier: iacm
-        description: ""
-        type: IACM
-        spec:
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Cloud
-            spec: {}
-          workspace: first
-          execution:
-            steps:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
               - step:
-                  type: IACMApproval
-                  name: IACMApproval_1
-                  identifier: IACMApproval_1
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
                   spec:
-                    autoApprove: false
-                  timeout: 1h
+                    pruningEnabled: false
         tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
   variables:
     - name: hbhj
       type: String
