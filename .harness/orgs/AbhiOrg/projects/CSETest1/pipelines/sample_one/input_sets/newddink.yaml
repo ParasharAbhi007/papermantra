@@ -1,0 +1,21 @@
+inputSet:
+  name: newddink
+  identifier: newddink
+  orgIdentifier: AbhiOrg
+  projectIdentifier: CSETest1
+  pipeline:
+    identifier: sample_one
+    stages:
+      - stage:
+          identifier: cds
+          type: Deployment
+          spec:
+            service:
+              serviceRef: k8service
+            environment:
+              infrastructureDefinitions:
+                - identifier: two
+    variables:
+      - name: hbhj
+        type: String
+        value: fdf
