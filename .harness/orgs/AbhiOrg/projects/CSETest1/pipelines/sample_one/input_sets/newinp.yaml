@@ -1,0 +1,26 @@
+inputSet:
+  name: newinp
+  identifier: newinp
+  orgIdentifier: AbhiOrg
+  projectIdentifier: CSETest1
+  pipeline:
+    identifier: sample_one
+    stages:
+      - stage:
+          identifier: cds
+          type: Deployment
+          spec:
+            service:
+              serviceRef: k8service
+            environment:
+              infrastructureDefinitions:
+                - identifier: ee
+                  inputs:
+                    identifier: ee
+                    type: KubernetesDirect
+                    spec:
+                      namespace: abhi
+    variables:
+      - name: hbhj
+        type: String
+        value: dff
