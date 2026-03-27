@@ -1,0 +1,104 @@
+apiVersion: harness.io/v1
+kind: Workflow
+type: service
+identifier: Env_Picker_Env
+name: Test ApiPicker From Env
+owner: group:account/_account_all_users
+spec:
+  lifecycle: testing
+  output:
+    links:
+    - title: View Pipeline Execution
+      url: ${{ steps.trigger.output.PipelineUrl }}
+    - title: Success!
+      content: |
+        Welcome! Your workflow completed successfully.
+
+        This demonstrates how Self-Service Workflows can:
+        - Collect input from developers
+        - Process that input automatically
+        - Provide immediate feedback
+  parameters:
+  - title: Developer Information
+    required:
+    - username
+    - team_name
+    properties:
+      username:
+        title: Username(s)
+        type: array
+        description: Select existing user(s) to grant access
+        ui:field: MultiEntityPicker
+        ui:options:
+          allowArbitraryValues: false
+          catalogFilter:
+          - kind: User
+      team_name:
+        title: Your Team
+        type: string
+        description: Which team do you belong to?
+      favorite_language:
+        title: Favorite Programming Language
+        type: string
+        enum:
+        - JavaScript
+        - Python
+        - Java
+        - Go
+        - Other
+        default: JavaScript
+      run_it:
+        title: Run the step or not
+        type: boolean
+        description: Will the step be executed?
+      subid:
+        title: Environment Group
+        type: string
+        description: Select Environment Group
+        ui:field: SelectFieldFromApi
+        ui:options:
+          title: Environment Groups
+          description: Pick an Environment Group
+          placeholder: Select Environment Group
+          path: proxy/harness/ng/api/environmentGroup/list
+          params:
+            accountIdentifier: akx2lmy5SnOFm549xPhFKQ
+            orgIdentifier: AbhiOrg
+            projectIdentifier: CSETest1
+            page: '0'
+            size: '25'
+          request:
+            method: POST
+            headers:
+              Content-Type: application/json
+            body:
+              filterType: EnvironmentGroup
+              tags: {}
+          arraySelector: data.content
+          labelSelector: envGroup.name
+          valueSelector: envGroup.identifier
+          allowArbitraryValues: false
+      token:
+        title: Harness Token
+        type: string
+        ui:widget: password
+        ui:field: HarnessAuthToken
+  steps:
+  - id: trigger
+    name: Trigger Welcome Pipeline
+    action: trigger:harness-custom-pipeline
+    input:
+      url: https://app.harness.io/ng/account/akx2lmy5SnOFm549xPhFKQ/module/cd/orgs/default/projects/pedro_project/pipelines/Pipe_with_IDP_Stage/pipeline-studio/?storeType=INLINE&branch=main
+      inputset:
+        username: ${{ parameters.username }}
+        team_name: ${{ parameters.team_name }}
+        favorite_language: ${{ parameters.favorite_language }}
+        run_it: ${{ parameters.run_it }}
+        subscriptionId: ${{ parameters.subid }}
+        apikey: ${{ parameters.token }}
+      showOutputVariables: true
+metadata:
+  description: A simple workflow to demonstrate self-service automation
+  tags:
+  - getting-started
+  - demo
