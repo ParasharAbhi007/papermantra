@@ -56,10 +56,4 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
-  variables:
-    - name: hbhj
-      type: String
-      description: ""
-      required: false
-      value: <+input>
   allowStageExecutions: true
