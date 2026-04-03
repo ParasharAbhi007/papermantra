@@ -14,16 +14,6 @@ pipeline:
           deploymentType: Kubernetes
           service:
             serviceRef: K8new
-          environment:
-            environmentRef: ECS_INFRA
-            environmentInputs:
-              variables:
-                - name: dbname
-                  type: String
-                  value: <+input>
-            deployToAll: false
-            infrastructureDefinitions:
-              - identifier: two
           execution:
             steps:
               - step:
@@ -49,6 +39,23 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
+          environments:
+            metadata:
+              parallel: false
+            values:
+              - environmentRef: ECS_INFRA
+                environmentInputs:
+                  variables:
+                    - name: dbname
+                      type: String
+                      value: <+input>
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: two
+              - environmentRef: helm
+                deployToAll: false
+                infrastructureDefinitions:
+                  - identifier: mre
         tags: {}
         failureStrategies:
           - onFailure:
