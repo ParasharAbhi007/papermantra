@@ -73,7 +73,9 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo "hey"
+                        script: |-
+                          echo "hey"
+                          echo <+pipeline.stages.cds_ECS_INFRA_two.status>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
