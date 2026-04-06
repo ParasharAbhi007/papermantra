@@ -30,6 +30,35 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+              - stepGroup:
+                  name: und
+                  identifier: und
+                  steps:
+                    - step:
+                        type: GitClone
+                        name: GitClone_1
+                        identifier: GitClone_1
+                        spec:
+                          connectorRef: account.AbhinandanGit
+                          repoName: " BasicMEAN"
+                          cloneDirectory: /harness/gitpath
+                          build:
+                            type: branch
+                            spec:
+                              branch: main
+                    - step:
+                        type: Run
+                        name: Run_1
+                        identifier: Run_1
+                        spec:
+                          connectorRef: DockerConnector
+                          image: nginx
+                          shell: Sh
+                          command: echo "hello"
+                  stepGroupInfra:
+                    type: KubernetesDirect
+                    spec:
+                      connectorRef: account.second
             rollbackSteps:
               - step:
                   name: Rollback Rollout Deployment
