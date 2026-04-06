@@ -38,23 +38,16 @@ pipeline:
                   timeout: 10m
                   spec:
                     pruningEnabled: false
-          environments:
-            metadata:
-              parallel: false
-            values:
-              - environmentRef: ECS_INFRA
-                environmentInputs:
-                  variables:
-                    - name: dbname
-                      type: String
-                      value: <+input>
-                deployToAll: false
-                infrastructureDefinitions:
-                  - identifier: two
-              - environmentRef: helm
-                deployToAll: false
-                infrastructureDefinitions:
-                  - identifier: mre
+          environment:
+            environmentRef: ECS_INFRA
+            environmentInputs:
+              variables:
+                - name: dbname
+                  type: String
+                  value: <+input>
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: two
         tags: {}
         failureStrategies:
           - onFailure:
