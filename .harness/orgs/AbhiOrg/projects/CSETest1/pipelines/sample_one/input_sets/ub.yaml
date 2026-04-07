@@ -1,0 +1,37 @@
+inputSet:
+  name: ub
+  identifier: ub
+  orgIdentifier: AbhiOrg
+  projectIdentifier: CSETest1
+  pipeline:
+    identifier: sample_one
+    stages:
+      - stage:
+          identifier: cds
+          type: Deployment
+          spec:
+            environment:
+              environmentInputs:
+                variables:
+                  - name: dbname
+                    type: String
+                    value: dd
+      - stage:
+          identifier: nn
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Asg
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: <+input>
+                        sources: <+input>
+            environment:
+              environmentInputs:
+                variables:
+                  - name: dbname
+                    type: String
+                    value: dd
