@@ -95,4 +95,55 @@ pipeline:
                     outputVariables: []
                   timeout: 10m
         tags: {}
+    - stage:
+        name: nn
+        identifier: nn
+        description: ""
+        type: Deployment
+        spec:
+          deploymentType: Asg
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "hey"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+            rollbackSteps: []
+          service:
+            serviceRef: ASG
+            serviceInputs:
+              serviceDefinition:
+                type: Asg
+                spec:
+                  artifacts:
+                    primary:
+                      primaryArtifactRef: <+input>
+                      sources: <+input>
+          environment:
+            environmentRef: ECS_INFRA
+            environmentInputs:
+              variables:
+                - name: dbname
+                  type: String
+                  value: <+input>
+            deployToAll: false
+            infrastructureDefinitions:
+              - identifier: asg
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
   allowStageExecutions: true
