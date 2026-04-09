@@ -146,4 +146,36 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+    - stage:
+        name: test
+        identifier: test
+        tags: {}
+        template:
+          templateRef: tomcat_ssh_deployment_copy
+          versionLabel: v1.1
+          templateInputs:
+            type: Deployment
+            spec:
+              service:
+                serviceRef: <+input>
+                serviceInputs: <+input>
+              environments:
+                values: <+input>
+            variables:
+              - name: end_point
+                type: String
+                default: got
+                value: <+input>.default(got)
+              - name: version
+                type: String
+                value: <+input>.default(1.0.0)
+              - name: artifact_name
+                type: String
+                value: <+input>
+              - name: is_tomcat_restart
+                type: String
+                value: <+input>.default(True).allowedValues(True,False)
+              - name: target_artifact_dir
+                type: String
+                value: <+input>
   allowStageExecutions: true
